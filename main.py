@@ -51,7 +51,6 @@ def nearest_cafes(coffee_list, our_location):
         coffe_dict['longitude'] = coffee_list[i]['Longitude_WGS84']
         coffe_dict['distance'] = distance.distance(our_location[::-1], coordinates[::-1]).km
         coffe_new_list.append(coffe_dict)
-    print(our_location)
     return coffe_new_list
 
 
