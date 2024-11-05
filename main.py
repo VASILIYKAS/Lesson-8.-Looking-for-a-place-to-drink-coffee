@@ -4,6 +4,7 @@ import folium
 import os
 from dotenv import load_dotenv
 from geopy import distance
+from flask import Flask
 
 
 # Открываем файл с кофешками Москвы
@@ -86,7 +87,17 @@ def map(coffe_name, our_location):
 
     m.save("coffee.html")  # Сохраняем карту "coffee.html"
 
-    os.startfile('coffee.html')  # Открываем карту "coffee.html"
+
+def open_map():
+    with open('coffee.html', encoding='utf-8') as file:
+        return file.read()
+
+
+# Запускаем сайт
+def site():
+    app = Flask(__name__)
+    app.add_url_rule('/', 'Coffe map', open_map)
+    app.run('0.0.0.0')
 
 
 def main():
@@ -97,6 +108,8 @@ def main():
     coffe_new_list = nearest_cafes(coffee_list, our_location)
     coffe_name = sort(coffe_new_list)
     map(coffe_name, our_location)
+    open_map()
+    site()
 
 
 if __name__ == '__main__':
